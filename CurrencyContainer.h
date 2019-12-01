@@ -4,8 +4,7 @@
 
 class CurrencyContainer: public QHash<QString, double> {
 public:
-    CurrencyContainer() {}
-    CurrencyContainer(const CurrencyContainer& ob): values(ob.values) {}
+    CurrencyContainer(): QHash<QString, double>() {}
+    CurrencyContainer(const CurrencyContainer& ob): QHash<QString, double>(ob) {}
 private:
-    QHash<QString, double> values;
 };

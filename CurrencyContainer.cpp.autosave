@@ -1,6 +1,0 @@
-#include "CurrencyContainer.h"
-
-CurrencyData::CurrencyData()
-{
-
-}

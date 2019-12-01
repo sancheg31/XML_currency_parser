@@ -10,9 +10,7 @@ public:
     QString numCode;
 };
 
-class CurrencyDataSingleton
-{
-
+class CurrencyDataSingleton {
 public:
 
     static CurrencyDataSingleton* instance(const QString& str) {
@@ -22,7 +20,7 @@ public:
         return instance_;
     }
 
-    const QVector<QString>& indexes() const;
+    const QVector<QString>& indexes() const { return ids; }
 
     QString charCode(const QString& str) const { return data.value(str).charCode; }
     QString name(const QString& str) const { return data.value(str).name; }

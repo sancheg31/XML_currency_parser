@@ -1,4 +1,4 @@
-<?xml version="utf-8" encoding="UTF-8" standalone="yes"?>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 	<Valute>
 		<ID>R01010</ID>
 		<name>Австралийский доллар</name>
@@ -13,13 +13,13 @@
 	</Valute>
 	<Valute>
 		<ID>R01035</ID>
-		<name>Фунт стерлингов</name>
+		<name>Фунт стерлингов Соединенного королевства</name>
 		<CharCode>GBP</CharCode>
 		<NumCode>826</NumCode>
 	</Valute>
 	<Valute>
 		<ID>R01060</ID>
-		<name>Армянский драм</name>
+		<name>Армянских драмов</name>
 		<CharCode>AMD</CharCode>
 		<NumCode>051</NumCode>
 	</Valute>
@@ -43,19 +43,19 @@
 	</Valute>
 	<Valute>
 		<ID>R01135</ID>
-		<name>Венгерский форинт</name>
+		<name>Венгерских форинтов</name>
 		<CharCode>HUF</CharCode>
 		<NumCode>348</NumCode>
 	</Valute>
 	<Valute>
 		<ID>R01200</ID>
-		<name>Гонконгский доллар</name>
+		<name>Гонконгских долларов</name>
 		<CharCode>HKD</CharCode>
 		<NumCode>344</NumCode>
 	</Valute>
 	<Valute>
 		<ID>R01215</ID>
-		<name>Датский крон</name>
+		<name>Датских крон</name>
 		<CharCode>DKK</CharCode>
 		<NumCode>208</NumCode>
 	</Valute>
@@ -79,7 +79,7 @@
 	</Valute>
 	<Valute>
 		<ID>R01335</ID>
-		<name>Казахстанский тенге</name>
+		<name>Казахстанских тенге</name>
 		<CharCode>KZT</CharCode>
 		<NumCode>398</NumCode>
 	</Valute>
@@ -91,25 +91,25 @@
 	</Valute>
 	<Valute>
 		<ID>R01370</ID>
-		<name>Киргизский сомов</name>
+		<name>Киргизских сомов</name>
 		<CharCode>KGS</CharCode>
 		<NumCode>417</NumCode>
 	</Valute>
 	<Valute>
 		<ID>R01375</ID>
-		<name>Китайский юань</name>
+		<name>Китайских юаней</name>
 		<CharCode>CNY</CharCode>
 		<NumCode>156</NumCode>
 	</Valute>
 	<Valute>
 		<ID>R01500</ID>
-		<name>Молдавский лев</name>
+		<name>Молдавских леев</name>
 		<CharCode>MDL</CharCode>
 		<NumCode>498</NumCode>
 	</Valute>
 	<Valute>
 		<ID>R01535</ID>
-		<name>Норвежская крона</name>
+		<name>Норвежских крон</name>
 		<CharCode>NOK</CharCode>
 		<NumCode>578</NumCode>
 	</Valute>
@@ -139,7 +139,7 @@
 	</Valute>
 	<Valute>
 		<ID>R01670</ID>
-		<name>Таджикский сомони</name>
+		<name>Таджикских сомони</name>
 		<CharCode>TJS</CharCode>
 		<NumCode>972</NumCode>
 	</Valute>
@@ -157,25 +157,25 @@
 	</Valute>
 	<Valute>
 		<ID>R01717</ID>
-		<name>Узбекский сумов</name>
+		<name>Узбекских сумов</name>
 		<CharCode>UZS</CharCode>
 		<NumCode>860</NumCode>
 	</Valute>
 	<Valute>
 		<ID>R01720</ID>
-		<name>Украинская гривна</name>
+		<name>Украинских гривен</name>
 		<CharCode>UAH</CharCode>
 		<NumCode>980</NumCode>
 	</Valute>
 	<Valute>
 		<ID>R01760</ID>
-		<name>Чешская крона</name>
+		<name>Чешских крон</name>
 		<CharCode>CZK</CharCode>
 		<NumCode>203</NumCode>
 	</Valute>
 	<Valute>
 		<ID>R01770</ID>
-		<name>Шведская крона</name>
+		<name>Шведских крон</name>
 		<CharCode>SEK</CharCode>
 		<NumCode>752</NumCode>
 	</Valute>
@@ -187,7 +187,7 @@
 	</Valute>
 	<Valute>
 		<ID>R01810</ID>
-		<name>Южноафриканский рэнд</name>
+		<name>Южноафриканских рэндов</name>
 		<CharCode>ZAR</CharCode>
 		<NumCode>710</NumCode>
 	</Valute>
@@ -196,4 +196,10 @@
 		<name>Вон Республики Корея</name>
 		<CharCode>KRW</CharCode>
 		<NumCode>410</NumCode>
+	</Valute>
+	<Valute>
+		<ID>R01820</ID>
+		<name>Японских иен</name>
+		<CharCode>JPY</CharCode>
+		<NumCode>392</NumCode>
 	</Valute>

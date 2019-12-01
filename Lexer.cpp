@@ -30,10 +30,6 @@ void Lexer::parse(const QString& fileName) const {
         if (token == QXmlStreamReader::StartElement)
         {
             if (xml.name() == QString("Valute")) {
-                if (curCurrencyId != "") {
-                    currencies.insert(curCurrencyId, curData);
-                    ids.push_back(curCurrencyId);
-                }
                 curCurrencyId = xml.attributes().value("ID").toString();
             } else if (xml.name() == QString("NumCode")) {
                 curData.numCode = xml.readElementText();
@@ -43,13 +39,19 @@ void Lexer::parse(const QString& fileName) const {
                 curData.name = xml.readElementText();
             }
         }
+        if (token == QXmlStreamReader::EndElement) {
+            if (xml.name() == QString("Valute")) {
+                currencies.insert(curCurrencyId, curData);
+                ids.push_back(curCurrencyId);
+            }
+        }
     }
     QFile* outFile = new QFile("D:/Projects/Qt/Currency_graphics/Currencies.xml");
     if (!outFile->open(QIODevice::WriteOnly | QIODevice::Text)) {
         return;
     }
     QXmlStreamWriter writer(outFile);
-    writer.writeStartDocument("utf-8", true);
+    writer.writeStartDocument("1.0", true);
 
     for (auto & id: ids) {
         CurrencyData el = currencies[id];
