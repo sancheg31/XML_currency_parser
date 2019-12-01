@@ -1,8 +1,8 @@
-QT       += core gui
+QT       += core gui xml
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-CONFIG += c++11
+CONFIG += c++17
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -16,21 +16,20 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    CurrencyContainer.cpp \
     CurrencyDataLexer.cpp \
     CurrencyDataSingleton.cpp \
-    CurrencyValueDom.cpp \
-    CurrencyValueSax.cpp \
+    IXmlHandler.cpp \
+    XmlDomHandler.cpp \
+    XmlSaxHandler.cpp \
     main.cpp
 
 HEADERS += \
-    CurrencyContainer.h \
     CurrencyData.h \
     CurrencyDataLexer.h \
     CurrencyDataSingleton.h \
-    CurrencyValueDom.h \
-    CurrencyValueSax.h \
-    ICurrencyValueLexer.h
+    IXmlHandler.h \
+    XmlDomHandler.h \
+    XmlSaxHandler.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

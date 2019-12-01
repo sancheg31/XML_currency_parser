@@ -3,10 +3,8 @@
 #include <QDebug>
 #include <QFile>
 
-#include "CurrencyContainer.h"
 #include "CurrencyDataSingleton.h"
 #include "CurrencyDataLexer.h"
-#include "CurrencyValueSax.h"
 
 int main(int argc, char *argv[])
 {
@@ -25,17 +23,6 @@ int main(int argc, char *argv[])
     for (auto & s: indexes)
         qDebug() << s;
     qDebug() << data->name(indexes.first()) << " " << data->name(indexes.back());
-    CurrencyValueSax saxLexer;
-
-    QFile * inFile = new QFile(fullFile);
-    inFile->open(QFile::ReadOnly | QFile::Text);
-
-    auto values = saxLexer.parse(inFile->readAll());
-
-    inFile->close();
-
-    for (auto & v: values)
-        qDebug() << v;
 
     return 0;
 

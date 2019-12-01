@@ -15,5 +15,4 @@ private:
     QVector<QString> indexes_;
     QHash<QString, CurrencyData> data_;
 
-
 };
