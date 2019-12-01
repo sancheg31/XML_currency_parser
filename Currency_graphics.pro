@@ -20,15 +20,18 @@ SOURCES += \
     CurrencyData.cpp \
     CurrencyDataLexer.cpp \
     CurrencyDataSingleton.cpp \
-    main.cpp \
-    GraphMainWindow.cpp
+    CurrencyValueDom.cpp \
+    CurrencyValueSax.cpp \
+    main.cpp
 
 HEADERS += \
     CurrencyContainer.h \
     CurrencyData.h \
     CurrencyDataLexer.h \
     CurrencyDataSingleton.h \
-    GraphMainWindow.h
+    CurrencyValueDom.h \
+    CurrencyValueSax.h \
+    ICurrencyValueLexer.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
