@@ -9,7 +9,7 @@ MainWidget::MainWidget(const QString& sourceFile, QWidget *parent) : QWidget(par
   m_pUI(new Ui::ratesform), currencyData(CurrencyDataSingleton::instance(sourceFile)), rateReceiver(new RateReceiver(this)) {
   m_pUI->setupUi(this);
 
-  m_pUI->from->setDate(QDate::currentDate());
+  m_pUI->from->setDate(QDate::currentDate().addDays(-1));
   m_pUI->to->setDate(QDate::currentDate());
 
   m_pUI->diag->setAxisScaleDraw(QwtPlot::xBottom, new DayScaleDraw());
@@ -27,7 +27,6 @@ void MainWidget::on_rate(const QDate &date, const double rate) {
   const int x = date.toJulianDay();
   const int i = x - m_pUI->from->date().toJulianDay();
   points[i] = QPointF(x, rate);
-  qDebug() << "point saved";
 }
 
 void MainWidget::on_loadFinished() {
@@ -62,6 +61,6 @@ void MainWidget::on_loadClicked() {
   points.clear();
 
   points.resize(ndays);
-
   rateReceiver->rateRequest(m_pUI->from->date(), m_pUI->to->date());
+
 }

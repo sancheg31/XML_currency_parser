@@ -13,8 +13,6 @@ void RateReceiver::on_load(QNetworkReply *reply) {
     QByteArray buff = reply->readAll();
     QXmlStreamReader xmlDoc(buff);
 
-    qDebug() << buff;
-
     double valRate(-1);
     QDate date;
 

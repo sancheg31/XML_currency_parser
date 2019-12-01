@@ -17,6 +17,7 @@ SOURCES += \
     DayScaleDraw.cpp \
     IXmlHandler.cpp \
     MainWidget.cpp \
+    MainWindow.cpp \
     RateReceiver.cpp \
     XmlDomHandler.cpp \
     XmlSaxHandler.cpp \
@@ -29,6 +30,7 @@ HEADERS += \
     DayScaleDraw.h \
     IXmlHandler.h \
     MainWidget.h \
+    MainWindow.h \
     RateReceiver.h \
     XmlDomHandler.h \
     XmlSaxHandler.h
