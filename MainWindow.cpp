@@ -69,8 +69,7 @@ void MainWindow::loadCurrency(const QString &id) {
     ndays = ito - ifrom + 1;
     points.clear();
     points.resize(ndays);
-    diag->clearMask();
-    diag->clearFocus();
+    //curve.setTitle(currencyData->name(id));
 
     rateReceiver->rateRequest(from->date(), to->date(), id);
 }
@@ -93,7 +92,6 @@ void MainWindow::slotLoadFinished(const QString& id) {
     else
       ++i;
     }
-    curve.setTitle(currencyData->name(id));
     curve.setSamples(points);
     qDebug() << "curve set with points on id: " << points.length();
     diag->replot();
@@ -151,6 +149,7 @@ void MainWindow::setCurveSettings() {
 }
 
 void MainWindow::setPlotSettings() {
+
     diag->setTitle("Graphics");
     diag->setCanvasBackground(Qt::white);
     diag->setAxisTitle(QwtPlot::yLeft, "Value");
@@ -170,12 +169,6 @@ void MainWindow::setPlotSettings() {
     picker->setRubberBandPen( QColor( Qt::red ) );
     picker->setTrackerPen( QColor( Qt::black ) );
     picker->setStateMachine( new QwtPickerDragPointMachine() );
-
-    QwtPlotMagnifier *magnifier = new QwtPlotMagnifier(diag->canvas());
-    magnifier->setMouseButton(Qt::MidButton);
-
-    QwtPlotPanner *panner = new QwtPlotPanner(diag->canvas());
-    panner->setMouseButton( Qt::RightButton );
 }
 
 
