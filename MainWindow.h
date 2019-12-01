@@ -17,8 +17,8 @@ public:
 private slots:
 
   void slotLoadClicked();
-  void slotRate(const QDate& date, const double rate);
-  void slotLoadFinished();
+  void slotRate(const QDate& date, const double rate, const QString&);
+  void slotLoadFinished(const QString&);
 
   void slotToggleToDom();
   void slotToggleToSax();

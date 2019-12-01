@@ -45,17 +45,17 @@ MainWindow::MainWindow(const QString& sourceFile, QMainWindow *parent) : QMainWi
     setCentralWidget(w);
 
     connect(load, SIGNAL(clicked()), SLOT(slotLoadClicked()));
-    connect(rateReceiver, SIGNAL(rate(QDate,double)), SLOT(slotRate(QDate,double)));
-    connect(rateReceiver, SIGNAL(loadFinished()), SLOT(slotLoadFinished()));
+    connect(rateReceiver, SIGNAL(rate(QDate,double, QString)), SLOT(slotRate(QDate,double, QString)));
+    connect(rateReceiver, SIGNAL(loadFinished(QString)), SLOT(slotLoadFinished(QString)));
 }
 
-void MainWindow::slotRate(const QDate &date, const double rate) {
+void MainWindow::slotRate(const QDate &date, const double rate, const QString& id) {
   const int x = date.toJulianDay();
   const int i = x - from->date().toJulianDay();
   points[i] = QPointF(x, rate);
 }
 
-void MainWindow::slotLoadFinished() {
+void MainWindow::slotLoadFinished(const QString& id) {
   int n = points.length();
   int i = 0;
 
@@ -69,14 +69,15 @@ void MainWindow::slotLoadFinished() {
   }
 
   curve.setSamples(points);
-  qDebug() << "curve set with points: " << points.length();
+  qDebug() << "curve set with points on id: " << points.length();
   diag->replot();
+
 }
 
 void MainWindow::slotLoadClicked() {
-  int ifrom = from->date().toJulianDay(),
-      ito = to->date().toJulianDay(),
-      ndays;
+  int ifrom = from->date().toJulianDay();
+  int ito = to->date().toJulianDay();
+  int ndays;
 
   if (ito < ifrom)
     return;
@@ -86,7 +87,7 @@ void MainWindow::slotLoadClicked() {
   points.clear();
 
   points.resize(ndays);
-  rateReceiver->rateRequest(from->date(), to->date());
+  rateReceiver->rateRequest(from->date(), to->date(), "R01020A");
 
 }
 
