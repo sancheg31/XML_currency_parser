@@ -5,6 +5,6 @@ class CurrencyValueDom : public ICurrencyValueLexer
 {
 public:
     virtual ~CurrencyValueDom() override {}
-    virtual QHash<QString, QString> parse(const QVector<QString> &) const override;
+    virtual QHash<QString, double> parse(QByteArray buf) const override;
 };
 

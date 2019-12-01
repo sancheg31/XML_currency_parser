@@ -1,10 +1,10 @@
 
 #include "ICurrencyValueLexer.h"
 
-class CurrencyValueSax : public ICurrencyValueLexer
+class CurrencyValueSax: public ICurrencyValueLexer
 {
 public:
     virtual ~CurrencyValueSax() override {}
-    virtual QHash<QString, QString> parse(const QVector<QString> &) const override;
+    virtual QHash<QString, double> parse(QByteArray) const override;
 };
 

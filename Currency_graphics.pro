@@ -17,7 +17,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     CurrencyContainer.cpp \
-    CurrencyData.cpp \
     CurrencyDataLexer.cpp \
     CurrencyDataSingleton.cpp \
     CurrencyValueDom.cpp \
