@@ -14,10 +14,15 @@ class MainWindow : public QMainWindow {
 public:
   explicit MainWindow(const QString&, QMainWindow * = nullptr);
 
-public slots:
-  void on_loadClicked();
-  void on_rate(const QDate& date, const double rate);
-  void on_loadFinished();
+private slots:
+
+  void slotLoadClicked();
+  void slotRate(const QDate& date, const double rate);
+  void slotLoadFinished();
+
+  void slotToggleToDom();
+  void slotToggleToSax();
+  void slotChooseCurrency();
 
 protected:
   QPushButton* load;
@@ -25,8 +30,16 @@ protected:
   QDateEdit* to;
   QwtPlot* diag;
 
+  QMenuBar* menuBar;
   CurrencyDataSingleton* currencyData;
   RateReceiver* rateReceiver;
   QwtPlotCurve curve;
   QVector<QPointF> points;
+
+  QAction* sax;
+  QAction* dom;
+
+  enum HandlerType { SAX, DOM } handlerType;
+private:
+  void createActionsAndMenus();
 };

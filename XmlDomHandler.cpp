@@ -4,7 +4,7 @@
 #include <QtXml/QDomNode>
 #include <QLocale>
 
-QVector<QPair<QDate, double> > XmlDomHandler::parse(QByteArray buff) const {
+QVector<QPair<QDate, double>> XmlDomHandler::parse(QByteArray buff) const {
     QLocale german(QLocale::German);
     double valRate(-1);  // курс валюты
     QDate date;

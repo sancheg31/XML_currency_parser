@@ -1,12 +1,18 @@
 #include "MainWidget.h"
+
 #include "ui_ratesform.h"
+
 #include "DayScaleDraw.h"
 #include "RateReceiver.h"
+
+#include "IXmlHandler.h"
+#include "XmlSaxHandler.h"
 
 #include <qwt_plot_curve.h>
 
 MainWidget::MainWidget(const QString& sourceFile, QWidget *parent) : QWidget(parent),
-  m_pUI(new Ui::ratesform), currencyData(CurrencyDataSingleton::instance(sourceFile)), rateReceiver(new RateReceiver(this)) {
+  m_pUI(new Ui::ratesform), currencyData(CurrencyDataSingleton::instance(sourceFile)),
+  rateReceiver(new RateReceiver(new XmlSaxHandler(), this)) {
   m_pUI->setupUi(this);
 
   m_pUI->from->setDate(QDate::currentDate().addDays(-1));

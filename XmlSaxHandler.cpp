@@ -5,10 +5,10 @@
 #include <QDate>
 
 QVector<QPair<QDate, double>> XmlSaxHandler::parse(QByteArray buff) const {
+
     QLocale german(QLocale::German);
     QXmlStreamReader xmlDoc(buff);
     QVector<QPair<QDate, double>> result;
-    qDebug() << buff;
 
     double valRate = -1; // курс валюты
     QDate date;
