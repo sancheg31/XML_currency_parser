@@ -8,9 +8,12 @@
 
 class CurrencyDataLexer {
 public:
+    const QVector<QString>& indexes() const { return indexes_; }
+    const QHash<QString, CurrencyData>& data() const { return data_; }
     void parse(const QString&);
 private:
-    QHash<QString, CurrencyData> data;
-    QVector<QString> indexes;
+    QVector<QString> indexes_;
+    QHash<QString, CurrencyData> data_;
+
 
 };

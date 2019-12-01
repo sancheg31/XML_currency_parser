@@ -6,8 +6,8 @@
 #include <QDebug>
 
 void CurrencyDataLexer::parse(const QString& fileName) {
-    indexes.clear();
-    data.clear();
+    indexes_.clear();
+    data_.clear();
     QFile * inFile = new QFile(fileName);
     if (!inFile->open(QIODevice::ReadOnly | QIODevice::Text)) {
         return;
@@ -33,35 +33,11 @@ void CurrencyDataLexer::parse(const QString& fileName) {
         }
         if (token == QXmlStreamReader::EndElement) {
             if (xml.name() == QString("Valute")) {
-                data.insert(curCurrencyId, curData);
-                indexes.push_back(curCurrencyId);
+                data_.insert(curCurrencyId, curData);
+                indexes_.push_back(curCurrencyId);
             }
         }
     }
-    /*QFile* outFile = new QFile("D:/Projects/Qt/Currency_graphics/Currencies.xml");
-    if (!outFile->open(QIODevice::WriteOnly | QIODevice::Text)) {
-        return;
-    }
-    QXmlStreamWriter writer(outFile);
-    writer.writeStartDocument("1.0", true);
-
-    for (auto & id: ids) {
-        CurrencyData el = currencies[id];
-        writer.writeCharacters("\n\t");
-        writer.writeStartElement("Valute");
-        writer.writeCharacters("\n\t\t");
-        writer.writeTextElement("ID", id);
-        writer.writeCharacters("\n\t\t");
-        writer.writeTextElement("name", el.name);
-        writer.writeCharacters("\n\t\t");
-        writer.writeTextElement("CharCode", el.charCode);
-        writer.writeCharacters("\n\t\t");
-        writer.writeTextElement("NumCode", el.numCode);
-        writer.writeCharacters("\n\t");
-        writer.writeEndElement();
-    }
-    writer.writeEndDocument();
-    outFile->close();*/
 }
 
 
