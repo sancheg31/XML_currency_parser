@@ -14,9 +14,12 @@
 
 MainWindow::MainWindow(const QString& sourceFile, QMainWindow *parent) : QMainWindow(parent),
     load(new QPushButton("load")), from(new QDateEdit(QDate::currentDate().addDays(-1))), to(new QDateEdit(QDate::currentDate())),
-    diag(new QwtPlot), menuBar(new QMenuBar()), currencyData(CurrencyDataSingleton::instance(sourceFile)),
+    diag(new QwtPlot), menuBar(new QMenuBar()),
     rateReceiver(new RateReceiver(new XmlSaxHandler(), this)), handlerType(HandlerType::SAX) {
 
+    currencyData = CurrencyDataSingleton::instance(sourceFile);
+    curName = new QLabel(currencyData->name("R01020A"));
+    qDebug() << currencyData->name("R01020A");
     diag->setAxisScaleDraw(QwtPlot::xBottom, new DayScaleDraw());
 
     curve.attach(diag);
@@ -28,13 +31,14 @@ MainWindow::MainWindow(const QString& sourceFile, QMainWindow *parent) : QMainWi
     setWindowTitle("Курсы валют");
     setMenuBar(menuBar);
 
-    QHBoxLayout * l = new QHBoxLayout;
+    QGridLayout * l = new QGridLayout;
     QGridLayout * mainl = new QGridLayout;
-    l->addWidget(from);
-    l->addWidget(to);
-    l->addWidget(load);
-    mainl->addLayout(l, 0, 0, 1, 3);
-    mainl->addWidget(diag, 1, 0, 3, 3);
+    l->addWidget(from, 0, 0, 1, 2);
+    l->addWidget(to, 0, 2, 1, 2);
+    l->addWidget(curName, 0, 4, 1, 1);
+    l->addWidget(load, 0, 5, 1, 1);
+    mainl->addLayout(l, 0, 0, 1, 5);
+    mainl->addWidget(diag, 1, 0, 3, 5);
 
     QWidget * w = new QWidget();
     w->setLayout(mainl);

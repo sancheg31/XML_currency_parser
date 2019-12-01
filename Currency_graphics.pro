@@ -16,7 +16,6 @@ SOURCES += \
     CurrencyDataSingleton.cpp \
     DayScaleDraw.cpp \
     IXmlHandler.cpp \
-    MainWidget.cpp \
     MainWindow.cpp \
     RateReceiver.cpp \
     XmlDomHandler.cpp \
@@ -29,7 +28,6 @@ HEADERS += \
     CurrencyDataSingleton.h \
     DayScaleDraw.h \
     IXmlHandler.h \
-    MainWidget.h \
     MainWindow.h \
     RateReceiver.h \
     XmlDomHandler.h \

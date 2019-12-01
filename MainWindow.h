@@ -8,7 +8,7 @@
 class RateReceiver;
 class QPushButton;
 class QDateEdit;
-
+class QLabel;
 class MainWindow : public QMainWindow {
   Q_OBJECT
 public:
@@ -28,6 +28,7 @@ protected:
   QPushButton* load;
   QDateEdit* from;
   QDateEdit* to;
+  QLabel* curName;
   QwtPlot* diag;
 
   QMenuBar* menuBar;
