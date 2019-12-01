@@ -9,6 +9,8 @@
 #include "XmlDomHandler.h"
 #include "XmlSaxHandler.h"
 
+#include "CurrencyCheckBox.h"
+
 #include <qwt_plot_curve.h>
 #include <qwt_plot.h>
 
@@ -18,8 +20,9 @@ MainWindow::MainWindow(const QString& sourceFile, QMainWindow *parent) : QMainWi
     rateReceiver(new RateReceiver(new XmlSaxHandler(), this)), handlerType(HandlerType::SAX) {
 
     currencyData = CurrencyDataSingleton::instance(sourceFile);
-    curName = new QLabel(currencyData->name("R01020A"));
-    qDebug() << currencyData->name("R01020A");
+    curButtonGroup = new CurrencyButtonGroup(currencyData, this);
+    currentId = currencyData->indexes()[0];
+    qDebug() << currentId;
     diag->setAxisScaleDraw(QwtPlot::xBottom, new DayScaleDraw());
 
     curve.attach(diag);
@@ -31,27 +34,42 @@ MainWindow::MainWindow(const QString& sourceFile, QMainWindow *parent) : QMainWi
     setWindowTitle("Курсы валют");
     setMenuBar(menuBar);
 
-    QGridLayout * l = new QGridLayout;
     QGridLayout * mainl = new QGridLayout;
-    l->addWidget(from, 0, 0, 1, 2);
-    l->addWidget(to, 0, 2, 1, 2);
-    l->addWidget(curName, 0, 4, 1, 1);
-    l->addWidget(load, 0, 5, 1, 1);
-    mainl->addLayout(l, 0, 0, 1, 5);
-    mainl->addWidget(diag, 1, 0, 3, 5);
+    mainl->addWidget(curButtonGroup, 0, 0, 4, 1);
+    mainl->addWidget(from, 0, 2, 1, 2);
+    mainl->addWidget(to, 0, 4, 1, 2);
+    mainl->addWidget(load, 0, 6, 1, 1);
+    mainl->addWidget(diag, 1, 1, 3, 6);
 
     QWidget * w = new QWidget();
     w->setLayout(mainl);
     setCentralWidget(w);
 
     connect(load, SIGNAL(clicked()), SLOT(slotLoadClicked()));
+    connect(curButtonGroup, SIGNAL(buttonClicked(CurrencyCheckBox*)), this, SLOT(slotCurrencyChanged(CurrencyCheckBox*)));
     connect(rateReceiver, SIGNAL(rate(QDate,double, QString)), SLOT(slotRate(QDate,double, QString)));
     connect(rateReceiver, SIGNAL(loadFinished(QString)), SLOT(slotLoadFinished(QString)));
+
+}
+
+void MainWindow::loadCurrency(const QString &id) {
+    int ifrom = from->date().toJulianDay();
+    int ito = to->date().toJulianDay();
+    int ndays;
+
+    if (ito < ifrom)
+        return;
+
+    ndays = ito - ifrom + 1;
+    points.clear();
+    points.resize(ndays);
+
+    rateReceiver->rateRequest(from->date(), to->date(), id);
 }
 
 void MainWindow::slotRate(const QDate &date, const double rate, const QString& id) {
-  const int x = date.toJulianDay();
-  const int i = x - from->date().toJulianDay();
+  const qint64 x = date.toJulianDay();
+  const qint64 i = x - from->date().toJulianDay();
   points[i] = QPointF(x, rate);
 }
 
@@ -71,28 +89,14 @@ void MainWindow::slotLoadFinished(const QString& id) {
   curve.setSamples(points);
   qDebug() << "curve set with points on id: " << points.length();
   diag->replot();
+}
 
+void MainWindow::slotCurrencyChanged(CurrencyCheckBox* currency) {
+    currentId = currency->id();
 }
 
 void MainWindow::slotLoadClicked() {
-  int ifrom = from->date().toJulianDay();
-  int ito = to->date().toJulianDay();
-  int ndays;
-
-  if (ito < ifrom)
-    return;
-
-  ndays = ito - ifrom + 1;
-
-  points.clear();
-
-  points.resize(ndays);
-  rateReceiver->rateRequest(from->date(), to->date(), "R01020A");
-
-}
-
-void MainWindow::slotChooseCurrency() {
-
+    loadCurrency(currentId);
 }
 
 void MainWindow::slotToggleToDom() {
@@ -114,9 +118,6 @@ void MainWindow::slotToggleToSax() {
 }
 
 void MainWindow::createActionsAndMenus() {
-
-    QMenu * currencies = menuBar->addMenu("Currencies");
-    currencies->addAction("&Choose currency...", this, SLOT(slotChooseCurrency()));
 
     QMenu * handler = menuBar->addMenu("Handlers");
     sax = new QAction("SAX");

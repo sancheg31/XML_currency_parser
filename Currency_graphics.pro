@@ -12,6 +12,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
+    CurrencyButtonGroup.cpp \
+    CurrencyCheckBox.cpp \
     CurrencyDataLexer.cpp \
     CurrencyDataSingleton.cpp \
     DayScaleDraw.cpp \
@@ -23,6 +25,8 @@ SOURCES += \
     main.cpp
 
 HEADERS += \
+    CurrencyButtonGroup.h \
+    CurrencyCheckBox.h \
     CurrencyData.h \
     CurrencyDataLexer.h \
     CurrencyDataSingleton.h \
