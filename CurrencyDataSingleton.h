@@ -3,12 +3,7 @@
 #include <QVector>
 #include <QHash>
 
-struct CurrencyData {
-public:
-    QString name;
-    QString charCode;
-    QString numCode;
-};
+#include "CurrencyData.h"
 
 class CurrencyDataSingleton {
 public:

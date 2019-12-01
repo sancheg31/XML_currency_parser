@@ -17,16 +17,18 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     CurrencyContainer.cpp \
+    CurrencyData.cpp \
+    CurrencyDataLexer.cpp \
     CurrencyDataSingleton.cpp \
-    Lexer.cpp \
     main.cpp \
     GraphMainWindow.cpp
 
 HEADERS += \
     CurrencyContainer.h \
+    CurrencyData.h \
+    CurrencyDataLexer.h \
     CurrencyDataSingleton.h \
-    GraphMainWindow.h \
-    Lexer.h
+    GraphMainWindow.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

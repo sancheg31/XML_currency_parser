@@ -1,21 +1,13 @@
-#include "Lexer.h"
+#include "CurrencyDataLexer.h"
 
 #include <QFile>
 #include <QHash>
 #include <QXmlStreamReader>
 #include <QDebug>
 
-struct CurrencyData {
-public:
-    QString name;
-    QString charCode;
-    QString numCode;
-};
-
-void Lexer::parse(const QString& fileName) const {
-
-    QHash<QString, CurrencyData> currencies;
-    QVector<QString> ids;
+void CurrencyDataLexer::parse(const QString& fileName) {
+    indexes.clear();
+    data.clear();
     QFile * inFile = new QFile(fileName);
     if (!inFile->open(QIODevice::ReadOnly | QIODevice::Text)) {
         return;
@@ -41,12 +33,12 @@ void Lexer::parse(const QString& fileName) const {
         }
         if (token == QXmlStreamReader::EndElement) {
             if (xml.name() == QString("Valute")) {
-                currencies.insert(curCurrencyId, curData);
-                ids.push_back(curCurrencyId);
+                data.insert(curCurrencyId, curData);
+                indexes.push_back(curCurrencyId);
             }
         }
     }
-    QFile* outFile = new QFile("D:/Projects/Qt/Currency_graphics/Currencies.xml");
+    /*QFile* outFile = new QFile("D:/Projects/Qt/Currency_graphics/Currencies.xml");
     if (!outFile->open(QIODevice::WriteOnly | QIODevice::Text)) {
         return;
     }
@@ -69,7 +61,7 @@ void Lexer::parse(const QString& fileName) const {
         writer.writeEndElement();
     }
     writer.writeEndDocument();
-    outFile->close();
+    outFile->close();*/
 }
 
 

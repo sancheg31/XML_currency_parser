@@ -1,0 +1,2 @@
+#include "CurrencyData.h"
+
