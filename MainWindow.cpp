@@ -11,8 +11,17 @@
 
 #include "CurrencyCheckBox.h"
 
-#include <qwt_plot_curve.h>
 #include <qwt_plot.h>
+
+#include <qwt_plot_magnifier.h>
+#include <qwt_plot_picker.h>
+#include <qwt_plot_panner.h>
+#include <qwt_plot_curve.h>
+#include <qwt_plot_grid.h>
+
+#include <qwt_picker_machine.h>
+#include <qwt_symbol.h>
+#include <qwt_legend.h>
 
 MainWindow::MainWindow(const QString& sourceFile, QMainWindow *parent) : QMainWindow(parent),
     load(new QPushButton("load")), from(new QDateEdit(QDate::currentDate().addDays(-1))), to(new QDateEdit(QDate::currentDate())),
@@ -23,12 +32,9 @@ MainWindow::MainWindow(const QString& sourceFile, QMainWindow *parent) : QMainWi
     curButtonGroup = new CurrencyButtonGroup(currencyData, this);
     currentId = currencyData->indexes()[0];
     qDebug() << currentId;
-    diag->setAxisScaleDraw(QwtPlot::xBottom, new DayScaleDraw());
 
-    curve.attach(diag);
-    curve.setVisible(true);
-    curve.setPen(QPen(Qt::red, 2));
-
+    setPlotSettings();
+    setCurveSettings();
     createActionsAndMenus();
 
     setWindowTitle("Курсы валют");
@@ -63,32 +69,34 @@ void MainWindow::loadCurrency(const QString &id) {
     ndays = ito - ifrom + 1;
     points.clear();
     points.resize(ndays);
+    diag->clearMask();
+    diag->clearFocus();
 
     rateReceiver->rateRequest(from->date(), to->date(), id);
 }
 
 void MainWindow::slotRate(const QDate &date, const double rate, const QString& id) {
-  const qint64 x = date.toJulianDay();
-  const qint64 i = x - from->date().toJulianDay();
-  points[i] = QPointF(x, rate);
+    const qint64 x = date.toJulianDay();
+    const qint64 i = x - from->date().toJulianDay();
+    points[i] = QPointF(x, rate);
 }
 
 void MainWindow::slotLoadFinished(const QString& id) {
-  int n = points.length();
-  int i = 0;
+    int n = points.length();
+    int i = 0;
 
-  while (i < n) {
+    while (i < n) {
     if (0 == points[i].x()) {
       points.removeAt(i);
       --n;
     }
     else
       ++i;
-  }
-
-  curve.setSamples(points);
-  qDebug() << "curve set with points on id: " << points.length();
-  diag->replot();
+    }
+    curve.setTitle(currencyData->name(id));
+    curve.setSamples(points);
+    qDebug() << "curve set with points on id: " << points.length();
+    diag->replot();
 }
 
 void MainWindow::slotCurrencyChanged(CurrencyCheckBox* currency) {
@@ -132,6 +140,42 @@ void MainWindow::createActionsAndMenus() {
     handler->addAction(sax);
     handler->addAction(dom);
 
+}
+
+void MainWindow::setCurveSettings() {
+    curve.attach(diag);
+    curve.setVisible(true);
+    curve.setPen(QPen(Qt::red, 2));
+    QwtSymbol *symbol = new QwtSymbol( QwtSymbol::Ellipse, QBrush(Qt::yellow), QPen(Qt::red, 1), QSize(8, 8));
+    curve.setSymbol(symbol);
+}
+
+void MainWindow::setPlotSettings() {
+    diag->setTitle("Graphics");
+    diag->setCanvasBackground(Qt::white);
+    diag->setAxisTitle(QwtPlot::yLeft, "Value");
+    diag->setAxisTitle(QwtPlot::xBottom, "Date");
+    diag->setAxisScaleDraw(QwtPlot::xBottom, new DayScaleDraw());
+    diag->insertLegend(new QwtLegend());
+
+    QwtPlotGrid *grid = new QwtPlotGrid();
+    grid->setMajorPen(QPen(Qt::gray, 1));
+    grid->attach(diag);
+
+    QwtPlotPicker *picker = new QwtPlotPicker(QwtPlot::xBottom, QwtPlot::yLeft,
+                                                QwtPlotPicker::CrossRubberBand,
+                                                QwtPicker::ActiveOnly,
+                                                diag->canvas() );
+
+    picker->setRubberBandPen( QColor( Qt::red ) );
+    picker->setTrackerPen( QColor( Qt::black ) );
+    picker->setStateMachine( new QwtPickerDragPointMachine() );
+
+    QwtPlotMagnifier *magnifier = new QwtPlotMagnifier(diag->canvas());
+    magnifier->setMouseButton(Qt::MidButton);
+
+    QwtPlotPanner *panner = new QwtPlotPanner(diag->canvas());
+    panner->setMouseButton( Qt::RightButton );
 }
 
 

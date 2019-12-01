@@ -1,0 +1,206 @@
+<ValCurs Date="30.11.2019" name="Foreign Currency Market">
+<Valute ID="R01010">
+<NumCode>036</NumCode>
+<CharCode>AUD</CharCode>
+
+<Name>Австралийский доллар</Name>
+</Valute>
+<Valute ID="R01020A">
+<NumCode>944</NumCode>
+<CharCode>AZN</CharCode>
+
+<Name>Азербайджанский манат</Name>
+</Valute>
+<Valute ID="R01035">
+<NumCode>826</NumCode>
+<CharCode>GBP</CharCode>
+
+<Name>Фунт стерлингов</Name>
+</Valute>
+<Valute ID="R01060">
+<NumCode>051</NumCode>
+<CharCode>AMD</CharCode>
+
+<Name>Армянский драм</Name>
+</Valute>
+<Valute ID="R01090B">
+<NumCode>933</NumCode>
+<CharCode>BYN</CharCode>
+
+<Name>Белорусский рубль</Name>
+</Valute>
+<Valute ID="R01100">
+<NumCode>975</NumCode>
+<CharCode>BGN</CharCode>
+
+<Name>Болгарский лев</Name>
+</Valute>
+<Valute ID="R01115">
+<NumCode>986</NumCode>
+<CharCode>BRL</CharCode>
+
+<Name>Бразильский реал</Name>
+</Valute>
+<Valute ID="R01135">
+<NumCode>348</NumCode>
+<CharCode>HUF</CharCode>
+
+<Name>Венгерский форинт</Name>
+</Valute>
+<Valute ID="R01200">
+<NumCode>344</NumCode>
+<CharCode>HKD</CharCode>
+
+<Name>Гонконгский доллар</Name>
+</Valute>
+<Valute ID="R01215">
+<NumCode>208</NumCode>
+<CharCode>DKK</CharCode>
+
+<Name>Датская крона</Name>
+</Valute>
+<Valute ID="R01235">
+<NumCode>840</NumCode>
+<CharCode>USD</CharCode>
+
+<Name>Доллар США</Name>
+</Valute>
+<Valute ID="R01239">
+<NumCode>978</NumCode>
+<CharCode>EUR</CharCode>
+
+<Name>Евро</Name>
+</Valute>
+<Valute ID="R01270">
+<NumCode>356</NumCode>
+<CharCode>INR</CharCode>
+
+<Name>Индийская рупия</Name>
+</Valute>
+<Valute ID="R01335">
+<NumCode>398</NumCode>
+<CharCode>KZT</CharCode>
+
+<Name>Казахстанский тенге</Name>
+</Valute>
+<Valute ID="R01350">
+<NumCode>124</NumCode>
+<CharCode>CAD</CharCode>
+
+<Name>Канадский доллар</Name>
+</Valute>
+<Valute ID="R01370">
+<NumCode>417</NumCode>
+<CharCode>KGS</CharCode>
+
+<Name>Киргизский сомов</Name>
+</Valute>
+<Valute ID="R01375">
+<NumCode>156</NumCode>
+<CharCode>CNY</CharCode>
+
+<Name>Китайский юань</Name>
+</Valute>
+<Valute ID="R01500">
+<NumCode>498</NumCode>
+<CharCode>MDL</CharCode>
+
+<Name>Молдавский лев</Name>
+</Valute>
+<Valute ID="R01535">
+<NumCode>578</NumCode>
+<CharCode>NOK</CharCode>
+
+<Name>Норвежская крона</Name>
+</Valute>
+<Valute ID="R01565">
+<NumCode>985</NumCode>
+<CharCode>PLN</CharCode>
+
+<Name>Польский злотый</Name>
+</Valute>
+<Valute ID="R01585F">
+<NumCode>946</NumCode>
+<CharCode>RON</CharCode>
+
+<Name>Румынский лей</Name>
+</Valute>
+<Valute ID="R01589">
+<NumCode>960</NumCode>
+<CharCode>XDR</CharCode>
+
+<Name>СДР</Name>
+</Valute>
+<Valute ID="R01625">
+<NumCode>702</NumCode>
+<CharCode>SGD</CharCode>
+
+<Name>Сингапурский доллар</Name>
+</Valute>
+<Valute ID="R01670">
+<NumCode>972</NumCode>
+<CharCode>TJS</CharCode>
+
+<Name>Таджикский сомони</Name>
+</Valute>
+<Valute ID="R01700J">
+<NumCode>949</NumCode>
+<CharCode>TRY</CharCode>
+
+<Name>Турецкая лира</Name>
+</Valute>
+<Valute ID="R01710A">
+<NumCode>934</NumCode>
+<CharCode>TMT</CharCode>
+
+<Name>Новый туркменский манат</Name>
+</Valute>
+<Valute ID="R01717">
+<NumCode>860</NumCode>
+<CharCode>UZS</CharCode>
+<Name>Узбекский сум</Name>
+</Valute>
+
+<Valute ID="R01720">
+<NumCode>980</NumCode>
+<CharCode>UAH</CharCode>
+<Name>Украинская гривна</Name>
+</Valute>
+
+<Valute ID="R01760">
+<NumCode>203</NumCode>
+<CharCode>CZK</CharCode>
+<Name>Чешская крона</Name>
+</Valute>
+
+<Valute ID="R01770">
+<NumCode>752</NumCode>
+<CharCode>SEK</CharCode>
+<Name>Шведская крона</Name>
+</Valute>
+
+<Valute ID="R01775">
+<NumCode>756</NumCode>
+<CharCode>CHF</CharCode>
+<Name>Швейцарский франк</Name>
+</Valute>
+
+<Valute ID="R01810">
+<NumCode>710</NumCode>
+<CharCode>ZAR</CharCode>
+<Name>Южноафриканский рэнд</Name>
+</Valute>
+
+<Valute ID="R01815">
+<NumCode>410</NumCode>
+<CharCode>KRW</CharCode>
+<Name>Вон Республики Корея</Name>
+</Valute>
+
+<Valute ID="R01820">
+<NumCode>392</NumCode>
+<CharCode>JPY</CharCode>
+<Name>Японскяа иена</Name>
+</Valute>
+
+</ValCurs>

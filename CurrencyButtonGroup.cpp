@@ -8,10 +8,8 @@ CurrencyButtonGroup::CurrencyButtonGroup(CurrencyDataSingleton* data, QWidget* p
     buttonGroup = new QButtonGroup;
     for (auto & s: data->indexes()) {
         auto cur = new CurrencyCheckBox(data->name(s), s);
-        if (++i<15) {
             buttonGroup->addButton(cur, i);
             l->addWidget(cur);
-        }
     }
     buttonGroup->setExclusive(true);
     setLayout(l);

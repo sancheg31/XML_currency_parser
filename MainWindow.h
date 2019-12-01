@@ -48,4 +48,6 @@ protected:
   enum HandlerType { SAX, DOM } handlerType;
 private:
   void createActionsAndMenus();
+  void setCurveSettings();
+  void setPlotSettings();
 };
