@@ -64,7 +64,7 @@ void MainWindow::loadCurrency(const QString &id) {
     int ito = to->date().toJulianDay();
     int ndays;
 
-    if (ito < ifrom)
+    if (ito < ifrom || from->date() == QDate::currentDate())
         return;
 
     ndays = ito - ifrom + 1;

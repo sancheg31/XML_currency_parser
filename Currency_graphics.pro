@@ -12,6 +12,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
+    ColorPalleteList.cpp \
     CurrencyButtonGroup.cpp \
     CurrencyCheckBox.cpp \
     CurrencyDataLexer.cpp \
@@ -19,20 +20,24 @@ SOURCES += \
     DayScaleDraw.cpp \
     IXmlHandler.cpp \
     MainWindow.cpp \
+    Plot.cpp \
     RateReceiver.cpp \
     XmlDomHandler.cpp \
     XmlSaxHandler.cpp \
     main.cpp
 
 HEADERS += \
+    ColorPalleteList.h \
     CurrencyButtonGroup.h \
     CurrencyCheckBox.h \
     CurrencyData.h \
     CurrencyDataLexer.h \
     CurrencyDataSingleton.h \
+    Curve.h \
     DayScaleDraw.h \
     IXmlHandler.h \
     MainWindow.h \
+    Plot.h \
     RateReceiver.h \
     XmlDomHandler.h \
     XmlSaxHandler.h
