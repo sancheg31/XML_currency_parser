@@ -79,7 +79,7 @@ void MainWindow::loadCurrency(const QString &id) {
     qDebug() << "all ok with points";
 
     (*plot)[id]->curve.setTitle(currencyData->name(id));
-    (*plot)[id]->curve;
+
     curve.setTitle(currencyData->name(id));
 
     qDebug() << "all ok with curve";
@@ -107,9 +107,21 @@ void MainWindow::slotLoadFinished(const QString& id) {
       ++i;
     }
 
+    n = (*plot)[id]->points.length();
+    i = 0;
+
+    while (i < n) {
+    if (0 == (*plot)[id]->points[i].x()) {
+      (*plot)[id]->points.removeAt(i);
+      --n;
+    }
+    else
+      ++i;
+    }
+
     curve.setSamples(points);
     (*plot)[id]->curve.attach(plot);
-    (*plot)[id]->curve.setSamples(points);
+    (*plot)[id]->curve.setSamples((*plot)[id]->points);
     qDebug() << "curve set with points on id: " << (*plot)[id]->points.size();
     diag->replot();
     plot->replot();
