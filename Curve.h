@@ -5,8 +5,6 @@
 
 struct Curve {
 public:
-    QwtPlotCurve curve_;
-    QVector<QPointF> points_;
-
-
+    QwtPlotCurve curve;
+    QVector<QPointF> points;
 };

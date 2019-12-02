@@ -2,6 +2,7 @@
 #include "ColorPalleteList.h"
 
 ColorPalleteList::ColorPalleteList() {
+    colors.reserve(17);
     colors.push_back(QColor(255, 0, 0));
     colors.push_back(QColor(255, 118, 0));
     colors.push_back(QColor(255, 190, 0));
@@ -16,4 +17,7 @@ ColorPalleteList::ColorPalleteList() {
     colors.push_back(QColor(118, 8, 170));
     colors.push_back(QColor(206, 0, 113));
     colors.push_back(QColor(226, 0, 72));
+    colors.push_back(QColor(140, 76, 27));
+    colors.push_back(QColor(35, 31, 83));
+    colors.push_back(QColor(25, 91, 36));
 }

@@ -14,7 +14,7 @@ public:
     using iterator = QHash<QString, Curve*>::iterator;
     using const_iterator = QHash<QString, Curve*>::const_iterator;
 
-    Plot(QVector<QString> indexes);
+    Plot(QVector<QString>& indexes);
 
     Curve* operator[](const QString& ind) {
         return curves[ind];
@@ -29,9 +29,11 @@ public:
     iterator end() { return curves.end(); }
     const_iterator end() const { return curves.end(); }
 
+public slots:
+    virtual void replot() override;
 
 protected:
-    Curve* createCurve() const;
+    Curve* createCurve(QPen pen, QwtSymbol* symbol) const;
     QwtPlot* createPlot() const;
 
     QwtPlot * plot;
