@@ -15,17 +15,21 @@ void RateReceiver::slotLoad(QNetworkReply *reply) {
 
     auto result = handler->parse(buff);
     for (auto & el: result)
-        emit rate(el.first, el.second, currencyId);
-    emit loadFinished(currencyId);
+        emit rate(el.first, el.second, currencyId.head());
+    qDebug() << "RateReceiver::slotLoad(): emiting loadFinished with id: " << currencyId.head();
+    emit loadFinished(currencyId.head(), currencyId.size() == 1);
+    currencyId.dequeue();
+    qDebug() << "RateReceiver::slotLoad(): queue size is :" << currencyId.size();
     delete reply;
 
 }
 
 void RateReceiver::rateRequest(const QDate &dateBegin, const QDate &dateEnd,  const QString& curId) {
+    currencyId.enqueue(curId);
     QUrlQuery postData;
-    currencyId = curId;
+    qDebug() << "rateReceiver::rateRequest(): loading currency with id: " << currencyId.head();
     QNetworkRequest req(QUrl(QString("http://www.cbr.ru/scripts/XML_dynamic.asp?date_req1=" + dateBegin.toString("dd/MM/yyyy") + "&" +
-                                   "date_req2=" + dateEnd.toString("dd/MM/yyyy") + "&VAL_NM_RQ=" + currencyId)));
+                                   "date_req2=" + dateEnd.toString("dd/MM/yyyy") + "&VAL_NM_RQ=" + curId)));
     req.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
     netManager->post(req, postData.toString(QUrl::FullyEncoded).toUtf8());
 }

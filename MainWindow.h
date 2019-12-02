@@ -22,9 +22,9 @@ private slots:
 
   void slotLoadClicked();
   void slotRate(const QDate& date, const double rate, const QString&);
-  void slotLoadFinished(const QString&);
+  void slotLoadFinished(const QString&, bool);
 
-  void slotCurrencyChanged(CurrencyCheckBox*);
+  void slotCurrencyButtonClicked(CurrencyCheckBox*);
   void slotToggleToDom();
   void slotToggleToSax();
 
@@ -33,13 +33,10 @@ protected:
   QPushButton* load;
   QDateEdit* from;
   QDateEdit* to;
-  QwtPlot* diag;
   CurrencyButtonGroup* curButtonGroup;
 
   CurrencyDataSingleton* currencyData;
   RateReceiver* rateReceiver;
-  QwtPlotCurve curve;
-  QVector<QPointF> points;
 
   Plot * plot;
 
@@ -48,11 +45,7 @@ protected:
   QAction* sax;
   QAction* dom;
 
-  QString currentId;
-
   enum HandlerType { SAX, DOM } handlerType;
-private:
   void createActionsAndMenus();
-  void setCurveSettings();
-  void setPlotSettings();
+
 };

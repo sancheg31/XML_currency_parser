@@ -13,9 +13,11 @@ public:
     QButtonGroup* group() const { return buttonGroup; }
 signals:
     void buttonClicked(CurrencyCheckBox*);
+    void buttonClicked(int);
 
 private slots:
     void slotButtonClicked(QAbstractButton*);
+    void slotButtonClicked(int);
 private:
     QButtonGroup* buttonGroup;
     CurrencyDataSingleton* curData;

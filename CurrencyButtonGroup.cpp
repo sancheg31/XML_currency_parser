@@ -11,11 +11,16 @@ CurrencyButtonGroup::CurrencyButtonGroup(CurrencyDataSingleton* data, QWidget* p
             buttonGroup->addButton(cur, i++);
             l->addWidget(cur);
     }
-    buttonGroup->setExclusive(true);
+    buttonGroup->setExclusive(false);
     setLayout(l);
     connect(buttonGroup, SIGNAL(buttonClicked(QAbstractButton*)), this, SLOT(slotButtonClicked(QAbstractButton*)));
+    connect(buttonGroup, SIGNAL(buttonClicked(int)), this, SLOT(slotButtonClicked(int)));
 }
 
 void CurrencyButtonGroup::slotButtonClicked(QAbstractButton* button) {
     emit buttonClicked(qobject_cast<CurrencyCheckBox*>(button));
+}
+
+void CurrencyButtonGroup::slotButtonClicked(int id) {
+    emit buttonClicked(id);
 }

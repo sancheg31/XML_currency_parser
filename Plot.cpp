@@ -16,8 +16,8 @@ Plot::Plot(const QVector<QString>& indexes) {
 
     setPlotSettings();
     for (int i = 0; i < indexes.count(); ++i) {
-        QwtSymbol * symbol = new QwtSymbol(QwtSymbol::Ellipse, QBrush(Qt::yellow), colorList[i], QSize(8, 8));
-        curves[indexes[i]] = createCurve(QPen(colorList[i%17], 2), symbol);
+        QwtSymbol * symbol = new QwtSymbol(QwtSymbol::Ellipse, QBrush(Qt::yellow), QPen(Qt::black), QSize(6, 6));
+        curves[indexes[i]] = createCurve(QPen(colorList[i%colorList.size()], 4), symbol);
     }
 }
 
@@ -49,6 +49,12 @@ void Plot::setPlotSettings() {
                                                 QwtPlotPicker::CrossRubberBand,
                                                 QwtPicker::ActiveOnly,
                                                 canvas());
+
+    //QwtPlotMagnifier *magnifier = new QwtPlotMagnifier(canvas());
+    //magnifier->setMouseButton(Qt::MidButton);
+
+    //QwtPlotPanner *panner = new QwtPlotPanner(canvas());
+    //panner->setMouseButton( Qt::RightButton );
 
     picker->setRubberBandPen(QColor(Qt::black));
     picker->setTrackerPen(QColor(Qt::black));

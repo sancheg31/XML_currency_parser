@@ -25,20 +25,14 @@
 
 MainWindow::MainWindow(const QString& sourceFile, QMainWindow *parent) : QMainWindow(parent),
     load(new QPushButton("load")), from(new QDateEdit(QDate::currentDate().addDays(-2))),
-    to(new QDateEdit(QDate::currentDate().addDays(-1))),
-    diag(new QwtPlot), menuBar(new QMenuBar()),
+    to(new QDateEdit(QDate::currentDate().addDays(-1))), menuBar(new QMenuBar()),
     rateReceiver(new RateReceiver(new XmlSaxHandler(), this)), handlerType(HandlerType::SAX) {
 
     currencyData = CurrencyDataSingleton::instance(sourceFile);
     plot  = new Plot(currencyData->indexes());
     curButtonGroup = new CurrencyButtonGroup(currencyData, this);
-    curButtonGroup->group()->button(0)->setChecked(true);
-    currentId = currencyData->indexes()[0];
 
-    setPlotSettings();
-    setCurveSettings();
     createActionsAndMenus();
-
     setWindowTitle("Курсы валют");
     setMenuBar(menuBar);
 
@@ -54,61 +48,39 @@ MainWindow::MainWindow(const QString& sourceFile, QMainWindow *parent) : QMainWi
     setCentralWidget(w);
 
     connect(load, SIGNAL(clicked()), SLOT(slotLoadClicked()));
-    connect(curButtonGroup, SIGNAL(buttonClicked(CurrencyCheckBox*)), this, SLOT(slotCurrencyChanged(CurrencyCheckBox*)));
+    connect(curButtonGroup, SIGNAL(buttonClicked(CurrencyCheckBox*)), this, SLOT(slotCurrencyButtonClicked(CurrencyCheckBox*)));
     connect(rateReceiver, SIGNAL(rate(QDate,double, QString)), SLOT(slotRate(QDate,double, QString)));
-    connect(rateReceiver, SIGNAL(loadFinished(QString)), SLOT(slotLoadFinished(QString)));
+    connect(rateReceiver, SIGNAL(loadFinished(QString, bool)), SLOT(slotLoadFinished(QString, bool)));
 
 }
 
 void MainWindow::loadCurrency(const QString &id) {
-    int ifrom = from->date().toJulianDay();
-    int ito = to->date().toJulianDay();
-    int ndays;
+    qint64 ifrom = from->date().toJulianDay();
+    qint64 ito = to->date().toJulianDay();
 
     if (ito < ifrom || from->date() == QDate::currentDate())
         return;
 
-    ndays = ito - ifrom + 1;
-    qDebug() << "all is ok here";
+    qint64 ndays = ito - ifrom + 1;
+
     (*plot)[id]->points.clear();
     (*plot)[id]->points.resize(ndays);
-
-    points.clear();
-    points.resize(ndays);
-
-    qDebug() << "all ok with points";
-
     (*plot)[id]->curve.setTitle(currencyData->name(id));
 
-    curve.setTitle(currencyData->name(id));
-
-    qDebug() << "all ok with curve";
-
+    qDebug() << "MainWindow::loadCurrency(): load currency with id: " << id;
     rateReceiver->rateRequest(from->date(), to->date(), id);
 }
 
 void MainWindow::slotRate(const QDate &date, const double rate, const QString& id) {
     const qint64 x = date.toJulianDay();
     const qint64 i = x - from->date().toJulianDay();
-    points[i] = QPointF(x, rate);
     (*plot)[id]->points[i] = QPointF(x, rate);
 }
 
-void MainWindow::slotLoadFinished(const QString& id) {
-    int n = points.length();
+void MainWindow::slotLoadFinished(const QString& id, bool b) {
+
+    int n = (*plot)[id]->points.length();
     int i = 0;
-
-    while (i < n) {
-    if (0 == points[i].x()) {
-      points.removeAt(i);
-      --n;
-    }
-    else
-      ++i;
-    }
-
-    n = (*plot)[id]->points.length();
-    i = 0;
 
     while (i < n) {
     if (0 == (*plot)[id]->points[i].x()) {
@@ -118,24 +90,48 @@ void MainWindow::slotLoadFinished(const QString& id) {
     else
       ++i;
     }
-
-    curve.setSamples(points);
-    (*plot)[id]->curve.attach(plot);
     (*plot)[id]->curve.setSamples((*plot)[id]->points);
-    qDebug() << "curve set with points on id: " << (*plot)[id]->points.size();
-    diag->replot();
+    qDebug() << "MainWindow::slotLoadFinished(): curve set with points " << (*plot)[id]->points.size() << " on id " << id;
     plot->replot();
+    load->setEnabled(b);
+
 }
 
-void MainWindow::slotCurrencyChanged(CurrencyCheckBox* currency) {
-    (*plot)[currentId]->curve.detach();
-    currentId = currency->id();
-    (*plot)[currentId]->curve.attach(plot);
-    loadCurrency(currentId);
+void MainWindow::slotCurrencyButtonClicked(CurrencyCheckBox* currency) {
+    if (!currency->isChecked()) {
+        (*plot)[currency->id()]->curve.detach();
+        (*plot)[currency->id()]->points.clear();
+        plot->replot();
+    }
+    else {
+        (*plot)[currency->id()]->curve.attach(plot);
+        loadCurrency(currency->id());
+        plot->replot();
+    }
 }
 
 void MainWindow::slotLoadClicked() {
-    loadCurrency(currentId);
+    load->setEnabled(false);
+    bool b = true;
+    for (auto & x: currencyData->indexes()) {
+        (*plot)[x]->curve.detach();
+        (*plot)[x]->points.clear();
+    }
+    plot->replot();
+    for (int i = 0; i < currencyData->indexes().count(); ++i) {
+        auto button = curButtonGroup->group()->button(i);
+        if (button->isChecked()) {
+            bool b = false;
+            auto cur = qobject_cast<CurrencyCheckBox*>(button);
+            qDebug() << cur->id() << " " << cur->name();
+            loadCurrency(cur->id());
+            QTimer wait;
+            wait.start(30);
+            (*plot)[cur->id()]->curve.attach(plot);
+        }
+    }
+    plot->replot();
+    load->setEnabled(b);
 }
 
 void MainWindow::slotToggleToDom() {
@@ -172,41 +168,6 @@ void MainWindow::createActionsAndMenus() {
     handler->addAction(dom);
 
 }
-
-void MainWindow::setCurveSettings() {
-    curve.attach(diag);
-    curve.setVisible(true);
-    curve.setPen(QPen(Qt::red, 2));
-    QwtSymbol *symbol = new QwtSymbol( QwtSymbol::Ellipse, QBrush(Qt::yellow), QPen(Qt::red, 1), QSize(8, 8));
-    curve.setSymbol(symbol);
-}
-
-void MainWindow::setPlotSettings() {
-
-    diag->setTitle("Graphics");
-    diag->setCanvasBackground(Qt::white);
-    diag->setAxisTitle(QwtPlot::yLeft, "Value");
-    diag->setAxisTitle(QwtPlot::xBottom, "Date");
-    diag->setAxisScaleDraw(QwtPlot::xBottom, new DayScaleDraw());
-    diag->insertLegend(new QwtLegend());
-
-    QwtPlotGrid *grid = new QwtPlotGrid();
-    grid->setMajorPen(QPen(Qt::gray, 1));
-    grid->attach(diag);
-
-    QwtPlotPicker *picker = new QwtPlotPicker(QwtPlot::xBottom, QwtPlot::yLeft,
-                                                QwtPlotPicker::CrossRubberBand,
-                                                QwtPicker::ActiveOnly,
-                                                diag->canvas() );
-
-    picker->setRubberBandPen( QColor( Qt::red ) );
-    picker->setTrackerPen( QColor( Qt::black ) );
-    picker->setStateMachine( new QwtPickerDragPointMachine() );
-}
-
-
-
-
 
 
 

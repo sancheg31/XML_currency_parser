@@ -3,21 +3,21 @@
 
 ColorPalleteList::ColorPalleteList() {
     colors.reserve(17);
-    colors.push_back(QColor(255, 0, 0));
-    colors.push_back(QColor(255, 118, 0));
-    colors.push_back(QColor(255, 190, 0));
-    colors.push_back(QColor(255, 231, 0));
-    colors.push_back(QColor(204, 246, 0));
-    colors.push_back(QColor(155, 237, 0));
-    colors.push_back(QColor(0, 204, 0));
-    colors.push_back(QColor(0, 172, 107));
-    colors.push_back(QColor(11, 97, 164));
-    colors.push_back(QColor(27, 27, 178));
-    colors.push_back(QColor(81, 15, 173));
-    colors.push_back(QColor(118, 8, 170));
-    colors.push_back(QColor(206, 0, 113));
-    colors.push_back(QColor(226, 0, 72));
-    colors.push_back(QColor(140, 76, 27));
-    colors.push_back(QColor(35, 31, 83));
-    colors.push_back(QColor(25, 91, 36));
+    colors.push_back(QColor(191, 57, 43));
+    colors.push_back(QColor(231, 76, 60));
+    colors.push_back(QColor(155, 89, 182));
+    colors.push_back(QColor(141, 68, 173));
+    colors.push_back(QColor(41, 128, 185));
+    colors.push_back(QColor(51, 152, 218));
+    colors.push_back(QColor(26, 188, 155));
+    colors.push_back(QColor(22, 159, 133));
+    colors.push_back(QColor(38, 174, 96));
+    colors.push_back(QColor(47, 203, 113));
+    colors.push_back(QColor(229, 126, 35));
+    colors.push_back(QColor(243, 156, 19));
+    colors.push_back(QColor(211, 84, 0));
+    colors.push_back(QColor(44, 62, 79));
+    colors.push_back(QColor(126, 140, 141));
+    colors.push_back(QColor(189, 195, 199));
+    colors.push_back(QColor(241, 196, 15));
 }
