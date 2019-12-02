@@ -30,6 +30,7 @@ MainWindow::MainWindow(const QString& sourceFile, QMainWindow *parent) : QMainWi
     rateReceiver(new RateReceiver(new XmlSaxHandler(), this)), handlerType(HandlerType::SAX) {
 
     currencyData = CurrencyDataSingleton::instance(sourceFile);
+    plot  = new Plot(currencyData->indexes());
     curButtonGroup = new CurrencyButtonGroup(currencyData, this);
     curButtonGroup->group()->button(0)->setChecked(true);
     currentId = currencyData->indexes()[0];
@@ -46,7 +47,7 @@ MainWindow::MainWindow(const QString& sourceFile, QMainWindow *parent) : QMainWi
     mainl->addWidget(from, 0, 2, 1, 2);
     mainl->addWidget(to, 0, 4, 1, 2);
     mainl->addWidget(load, 0, 6, 1, 1);
-    mainl->addWidget(diag, 1, 1, 3, 6);
+    mainl->addWidget(plot, 1, 1, 3, 6);
 
     QWidget * w = new QWidget();
     w->setLayout(mainl);
@@ -68,9 +69,20 @@ void MainWindow::loadCurrency(const QString &id) {
         return;
 
     ndays = ito - ifrom + 1;
+    qDebug() << "all is ok here";
+    (*plot)[id]->points.clear();
+    (*plot)[id]->points.resize(ndays);
+
     points.clear();
     points.resize(ndays);
+
+    qDebug() << "all ok with points";
+
+    (*plot)[id]->curve.setTitle(currencyData->name(id));
+    (*plot)[id]->curve;
     curve.setTitle(currencyData->name(id));
+
+    qDebug() << "all ok with curve";
 
     rateReceiver->rateRequest(from->date(), to->date(), id);
 }
@@ -79,6 +91,7 @@ void MainWindow::slotRate(const QDate &date, const double rate, const QString& i
     const qint64 x = date.toJulianDay();
     const qint64 i = x - from->date().toJulianDay();
     points[i] = QPointF(x, rate);
+    (*plot)[id]->points[i] = QPointF(x, rate);
 }
 
 void MainWindow::slotLoadFinished(const QString& id) {
@@ -95,12 +108,18 @@ void MainWindow::slotLoadFinished(const QString& id) {
     }
 
     curve.setSamples(points);
-    qDebug() << "curve set with points on id: " << points.length();
+    (*plot)[id]->curve.attach(plot);
+    (*plot)[id]->curve.setSamples(points);
+    qDebug() << "curve set with points on id: " << (*plot)[id]->points.size();
     diag->replot();
+    plot->replot();
 }
 
 void MainWindow::slotCurrencyChanged(CurrencyCheckBox* currency) {
+    (*plot)[currentId]->curve.detach();
     currentId = currency->id();
+    (*plot)[currentId]->curve.attach(plot);
+    loadCurrency(currentId);
 }
 
 void MainWindow::slotLoadClicked() {

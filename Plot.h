@@ -14,7 +14,7 @@ public:
     using iterator = QHash<QString, Curve*>::iterator;
     using const_iterator = QHash<QString, Curve*>::const_iterator;
 
-    Plot(QVector<QString>& indexes);
+    Plot(const QVector<QString>& indexes);
 
     Curve* operator[](const QString& ind) {
         return curves[ind];
@@ -34,9 +34,8 @@ public slots:
 
 protected:
     Curve* createCurve(QPen pen, QwtSymbol* symbol) const;
-    QwtPlot* createPlot() const;
+    void setPlotSettings();
 
-    QwtPlot * plot;
     QHash<QString, Curve*> curves;
     ColorPalleteList colorList;
 

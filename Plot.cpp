@@ -12,12 +12,12 @@
 
 #include "DayScaleDraw.h"
 
-Plot::Plot(QVector<QString>& indexes) {
+Plot::Plot(const QVector<QString>& indexes) {
 
-    plot = createPlot();
+    setPlotSettings();
     for (int i = 0; i < indexes.count(); ++i) {
         QwtSymbol * symbol = new QwtSymbol(QwtSymbol::Ellipse, QBrush(Qt::yellow), colorList[i], QSize(8, 8));
-        curves[indexes[i]] = createCurve(colorList[i%17], symbol);
+        curves[indexes[i]] = createCurve(QPen(colorList[i%17], 2), symbol);
     }
 }
 
@@ -27,35 +27,32 @@ void Plot::replot() {
 
 Curve* Plot::createCurve(QPen pen, QwtSymbol* symbol) const {
     Curve* cur = new Curve;
-    cur->curve.attach(plot);
     cur->curve.setVisible(true);
     cur->curve.setPen(pen);
     cur->curve.setSymbol(symbol);
     return cur;
 }
 
-QwtPlot* Plot::createPlot() const {
-    QwtPlot* plot = new QwtPlot;
-    plot->setTitle("Graphics");
-    plot->setCanvasBackground(Qt::white);
-    plot->setAxisTitle(QwtPlot::yLeft, "Value");
-    plot->setAxisTitle(QwtPlot::xBottom, "Date");
-    plot->setAxisScaleDraw(QwtPlot::xBottom, new DayScaleDraw());
-    plot->insertLegend(new QwtLegend());
+void Plot::setPlotSettings() {
+    setTitle("Graphics");
+    setCanvasBackground(Qt::white);
+    setAxisTitle(QwtPlot::yLeft, "Value");
+    setAxisTitle(QwtPlot::xBottom, "Date");
+    setAxisScaleDraw(QwtPlot::xBottom, new DayScaleDraw());
+    insertLegend(new QwtLegend());
 
     QwtPlotGrid *grid = new QwtPlotGrid();
     grid->setMajorPen(QPen(Qt::gray, 1));
-    grid->attach(plot);
+    grid->attach(this);
 
     QwtPlotPicker *picker = new QwtPlotPicker(QwtPlot::xBottom, QwtPlot::yLeft,
                                                 QwtPlotPicker::CrossRubberBand,
                                                 QwtPicker::ActiveOnly,
-                                                plot->canvas());
+                                                canvas());
 
     picker->setRubberBandPen(QColor(Qt::black));
     picker->setTrackerPen(QColor(Qt::black));
     picker->setStateMachine(new QwtPickerDragPointMachine());
-    return plot;
 }
 
 

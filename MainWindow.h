@@ -6,6 +6,8 @@
 #include "CurrencyDataSingleton.h"
 #include "CurrencyButtonGroup.h"
 
+#include "Plot.h"
+
 class RateReceiver;
 class QPushButton;
 class QDateEdit;
@@ -38,6 +40,8 @@ protected:
   RateReceiver* rateReceiver;
   QwtPlotCurve curve;
   QVector<QPointF> points;
+
+  Plot * plot;
 
   QMenuBar* menuBar;
 
