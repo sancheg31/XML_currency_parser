@@ -8,33 +8,33 @@
 <Valute ID="R01020A">
 <NumCode>944</NumCode>
 <CharCode>AZN</CharCode>
-
 <Name>Азербайджанский манат</Name>
 </Valute>
+
 <Valute ID="R01035">
 <NumCode>826</NumCode>
 <CharCode>GBP</CharCode>
-
 <Name>Фунт стерлингов</Name>
 </Valute>
+
 <Valute ID="R01060">
 <NumCode>051</NumCode>
 <CharCode>AMD</CharCode>
-
 <Name>Армянский драм</Name>
 </Valute>
+
 <Valute ID="R01090B">
 <NumCode>933</NumCode>
 <CharCode>BYN</CharCode>
-
 <Name>Белорусский рубль</Name>
 </Valute>
+
 <Valute ID="R01100">
 <NumCode>975</NumCode>
 <CharCode>BGN</CharCode>
-
 <Name>Болгарский лев</Name>
 </Valute>
+
 <Valute ID="R01115">
 <NumCode>986</NumCode>
 <CharCode>BRL</CharCode>
@@ -200,7 +200,7 @@
 <Valute ID="R01820">
 <NumCode>392</NumCode>
 <CharCode>JPY</CharCode>
-<Name>Японскяа иена</Name>
+<Name>Японская иена</Name>
 </Valute>
 
 </ValCurs>

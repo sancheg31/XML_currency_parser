@@ -24,14 +24,15 @@
 #include <qwt_legend.h>
 
 MainWindow::MainWindow(const QString& sourceFile, QMainWindow *parent) : QMainWindow(parent),
-    load(new QPushButton("load")), from(new QDateEdit(QDate::currentDate().addDays(-1))), to(new QDateEdit(QDate::currentDate())),
+    load(new QPushButton("load")), from(new QDateEdit(QDate::currentDate().addDays(-2))),
+    to(new QDateEdit(QDate::currentDate().addDays(-1))),
     diag(new QwtPlot), menuBar(new QMenuBar()),
     rateReceiver(new RateReceiver(new XmlSaxHandler(), this)), handlerType(HandlerType::SAX) {
 
     currencyData = CurrencyDataSingleton::instance(sourceFile);
     curButtonGroup = new CurrencyButtonGroup(currencyData, this);
+    curButtonGroup->group()->button(0)->setChecked(true);
     currentId = currencyData->indexes()[0];
-    qDebug() << currentId;
 
     setPlotSettings();
     setCurveSettings();
@@ -69,7 +70,7 @@ void MainWindow::loadCurrency(const QString &id) {
     ndays = ito - ifrom + 1;
     points.clear();
     points.resize(ndays);
-    //curve.setTitle(currencyData->name(id));
+    curve.setTitle(currencyData->name(id));
 
     rateReceiver->rateRequest(from->date(), to->date(), id);
 }
@@ -92,6 +93,7 @@ void MainWindow::slotLoadFinished(const QString& id) {
     else
       ++i;
     }
+
     curve.setSamples(points);
     qDebug() << "curve set with points on id: " << points.length();
     diag->replot();

@@ -14,8 +14,8 @@ class MainWindow : public QMainWindow {
   Q_OBJECT
 public:
   explicit MainWindow(const QString&, QMainWindow * = nullptr);
-
   void loadCurrency(const QString& id);
+
 private slots:
 
   void slotLoadClicked();
@@ -27,6 +27,7 @@ private slots:
   void slotToggleToSax();
 
 protected:
+
   QPushButton* load;
   QDateEdit* from;
   QDateEdit* to;
