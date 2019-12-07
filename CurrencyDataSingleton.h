@@ -9,7 +9,7 @@ class CurrencyDataSingleton {
 public:
 
     static CurrencyDataSingleton* instance(const QString& str) {
-        CurrencyDataSingleton* instance_ = nullptr;
+        static CurrencyDataSingleton* instance_ = nullptr;
         if (!instance_)
             instance_ = new CurrencyDataSingleton(str);
         return instance_;

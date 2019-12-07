@@ -26,9 +26,8 @@ private slots:
     void slotLoad(QNetworkReply*);
 
 protected:
-    QNetworkAccessManager *netManager;
-    IXmlHandler * handler;
+    QNetworkAccessManager* netManager;
+    IXmlHandler* handler;
     QQueue<QString> currencyId;
 
 };
-

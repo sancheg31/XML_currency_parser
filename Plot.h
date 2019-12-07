@@ -8,7 +8,8 @@
 #include "ColorPalleteList.h"
 #include "Curve.h"
 
-class Plot: public QwtPlot {
+class Plot: public QwtPlot
+{
 public:
 
     using iterator = QHash<QString, Curve*>::iterator;
@@ -40,4 +41,3 @@ protected:
     ColorPalleteList colorList;
 
 };
-
