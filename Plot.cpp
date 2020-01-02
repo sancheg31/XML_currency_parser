@@ -14,7 +14,6 @@
 #include "DayScaleDraw.h"
 
 Plot::Plot(const QVector<QString>& indexes) {
-
     setPlotSettings();
     for (int i = 0; i < indexes.count(); ++i) {
         QwtSymbol * symbol = new QwtSymbol(QwtSymbol::Ellipse, QBrush(Qt::yellow), QPen(Qt::black), QSize(6, 6));
@@ -51,16 +50,11 @@ void Plot::setPlotSettings() {
                                                 QwtPicker::ActiveOnly,
                                                 canvas());
 
-    //QwtPlotMagnifier *magnifier = new QwtPlotMagnifier(canvas());
-    //magnifier->setMouseButton(Qt::MidButton);
-
-    //QwtPlotPanner *panner = new QwtPlotPanner(canvas());
-    //panner->setMouseButton( Qt::RightButton );
-
     picker->setRubberBandPen(QColor(Qt::black));
     picker->setTrackerPen(QColor(Qt::black));
     picker->setStateMachine(new QwtPickerDragPointMachine());
 }
+
 
 
 

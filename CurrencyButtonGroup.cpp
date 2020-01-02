@@ -24,3 +24,4 @@ void CurrencyButtonGroup::slotButtonClicked(QAbstractButton* button) {
 void CurrencyButtonGroup::slotButtonClicked(int id) {
     emit buttonClicked(id);
 }
+

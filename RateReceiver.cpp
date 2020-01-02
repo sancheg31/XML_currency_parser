@@ -30,6 +30,8 @@ void RateReceiver::rateRequest(const QDate &dateBegin, const QDate &dateEnd,  co
     qDebug() << "rateReceiver::rateRequest(): loading currency with id: " << currencyId.head();
     QNetworkRequest req(QUrl(QString("http://www.cbr.ru/scripts/XML_dynamic.asp?date_req1=" + dateBegin.toString("dd/MM/yyyy") + "&" +
                                    "date_req2=" + dateEnd.toString("dd/MM/yyyy") + "&VAL_NM_RQ=" + curId)));
+    qDebug() << QUrl(QString("http://www.cbr.ru/scripts/XML_dynamic.asp?date_req1=" + dateBegin.toString("dd/MM/yyyy") + "&" +
+                            "date_req2=" + dateEnd.toString("dd/MM/yyyy") + "&VAL_NM_RQ=" + curId));
     req.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
     netManager->post(req, postData.toString(QUrl::FullyEncoded).toUtf8());
 }

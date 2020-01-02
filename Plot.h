@@ -11,20 +11,16 @@
 class Plot: public QwtPlot
 {
 public:
-
     using iterator = QHash<QString, Curve*>::iterator;
     using const_iterator = QHash<QString, Curve*>::const_iterator;
 
     Plot(const QVector<QString>& indexes);
-
     Curve* operator[](const QString& ind) {
         return curves[ind];
     }
-
     const Curve* operator[](const QString& ind) const {
         return curves[ind];
     }
-
     iterator begin() { return curves.begin(); }
     const_iterator begin() const { return curves.begin(); }
     iterator end() { return curves.end(); }

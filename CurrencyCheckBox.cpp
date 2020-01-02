@@ -9,3 +9,4 @@ CurrencyCheckBox::CurrencyCheckBox(const QString& name, const QString& id, QWidg
 void CurrencyCheckBox::slotStateChanged(int state) {
     emit stateChanged(curId, state);
 }
+

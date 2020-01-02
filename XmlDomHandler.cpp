@@ -1,5 +1,4 @@
 #include "XmlDomHandler.h"
-
 #include <QtXml/QDomDocument>
 #include <QtXml/QDomNode>
 #include <QLocale>
